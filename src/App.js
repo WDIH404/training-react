@@ -1,24 +1,63 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import './index.css';
 
 function App() {
+  const [todo, setTodo] = React.useState('');
+  const [todos, setTodos] = React.useState([]);
+  const addTodo = () => {
+    if (todo !== '') {
+      setTodos([...todos, todo]);
+      setTodo(todo);
+    } else {
+      alert('Введите название задачи');
+    }
+  };
+  
+  const deleteTodo = (index) => {
+    console.log(index);
+  };
+
+  const clearTodo = () => {
+    setTodos([]);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="wrapper">
+        <div className="add_task">
+          <input
+            type="text"
+            onChange={(e) => {
+              setTodo(e.target.value);
+            }}
+          />
+          <button onClick={addTodo}>Добавить</button>
+        </div>
+        {todos?.length > 0 ? (
+          <ul className="list">
+            {todos.map((todo, index) => (
+              <div key={index} className={`todo ${index === 0 ? 'active' : ''}`}>
+                <li>{todo}</li>
+                <button
+                  className="delete_task"
+                  onClick={() => {
+                    deleteTodo(index);
+                  }}
+                >
+                  Удалить
+                </button>
+              </div>
+            ))}
+          </ul>
+        ) : (
+          <div className="empty">
+            <p>Нет задач</p>
+          </div>
+        )}
+        <button className="delete" onClick={clearTodo}>
+          Очистить список
+        </button>
+      </div>
+    </>
   );
 }
 
