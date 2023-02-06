@@ -13,11 +13,9 @@ function App() {
   const clearTodo = () => {
     setTodos([]);
   };
-  // const deleteTodo = () => {
-  //   setTodos([...todos].filter((t) => t.index !== index));
-  // };
-  const deleteItem = () => {
-
+  const deleteItem = (index) => {
+    console.log('Индекс:', index);
+    setTodos([...todos].filter((t) => t.index !== index));
   };
 
   return (
@@ -42,7 +40,7 @@ function App() {
         </div>
         <div className="items">
           {todos.map((todo, index) => (
-            <ToDoItem key={index} description={todo} deleteItem = {deleteItem}/>
+            <ToDoItem key={index} description={todo} action={() => deleteItem(index)} />
           ))}
         </div>
         <div className="control_button">
