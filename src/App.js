@@ -14,8 +14,7 @@ function App() {
     setTodos([]);
   };
   const deleteItem = (index) => {
-    console.log('Индекс:', index);
-    setTodos([...todos].filter((t) => t.index !== index));
+    setTodos([...todos].filter(t => t.id !== index))
   };
 
   return (
